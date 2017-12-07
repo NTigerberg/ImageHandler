@@ -7,6 +7,13 @@
 </div>
 
 <div>{{message}}</div>
+<div *ngIf="this.tags">
+  Suggested Tags:
+  <ul *ngFor="let tag of this.tags">
+    <li>{{tag}}</li>
+  </ul>
+  <img class="suggestedImages" src="http://localhost:35195/{{image}}" />
+</div>
 
 <div *ngFor="let image of this.images">
   <img class="suggestedImages" src="http://localhost:35195/{{image}}" />
