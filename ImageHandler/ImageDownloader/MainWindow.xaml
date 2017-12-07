@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageDownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="200" Width="525">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+		<StackPanel Orientation="Vertical" Grid.Row="0">
+			<Label>Category</Label>
+			<TextBox Name="tbCategory" Margin="5"></TextBox>
+			<Label>Download path</Label>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="8*">
+					</ColumnDefinition>
+					<ColumnDefinition Width="2*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<TextBox IsReadOnly="True" Name="tbDirectoryPath" Margin="5" Grid.Column="0"></TextBox>
+				<Button Name="btnBrowse" Click="btnBrowse_Click" Grid.Column="1" Margin="5">Browse</Button>
+			</Grid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*">
+					</ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Vertical">
+					<Label Margin="5,5,5,0">Pages</Label>
+					<TextBox Margin="5,0,5,5" Name="tbPages"></TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="1">
+					<Label Margin="5,5,5,0">Per page</Label>
+					<TextBox Margin="5,0,5,5" Name="tbPerPage"></TextBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Bottom">
+					<Button Name="Download" Margin="5" Click="Download_Click">Download</Button>
+				</StackPanel>
+			</Grid>
+			
+		</StackPanel>
+	</Grid>
 </Window>
