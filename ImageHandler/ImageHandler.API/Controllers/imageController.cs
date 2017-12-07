@@ -12,13 +12,13 @@ namespace ImageHandler.API.Controllers
 {
 	[EnableCors(origins: "http://localhost:4200,http://127.0.0.1:4200", headers: "*", methods: "*")]
 	[RoutePrefix("api/image")]
-	public class ImageController
+	public class ImageController: ApiController
 	{
 		/// <summary>
 		/// Get user applications
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet]
+		[HttpPost]
 		[Route("upload")]
 		public string Upload()
 		{
