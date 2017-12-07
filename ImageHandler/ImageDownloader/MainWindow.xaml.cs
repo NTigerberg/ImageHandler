@@ -96,5 +96,40 @@ namespace ImageDownloader
 			Console.WriteLine("Finished downloading images");
 		}
 
+		private void btnCreateTextFile_Click(object sender, RoutedEventArgs e)
+		{
+			var directory = tbDirectoryPath.Text;
+
+			if (!Directory.Exists(directory))
+				return;
+
+			var filePath = System.IO.Path.Combine(directory, "imagelist.txt");
+			if (File.Exists(filePath))
+			{
+				var retry = 0;
+				while (retry >= 0 && retry < 5)
+				{
+					try
+					{
+						File.Delete(filePath);
+						retry = -1;
+					}
+					catch (Exception)
+					{
+						retry++;
+					}
+				}
+			}
+			using (var writer = File.CreateText(filePath))
+			{
+				DirectoryInfo info = new DirectoryInfo(directory);
+				var files = info.GetFiles("*.jpg");
+				foreach (var file in files)
+				{
+					var line = string.Format("{0} {1}", file.Name, tbCategory.Text.Replace(" ", "_"));
+					writer.WriteLine(line);
+				}
+			}
+		}
 	}
 }
