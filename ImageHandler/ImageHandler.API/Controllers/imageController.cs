@@ -14,7 +14,7 @@ namespace ImageHandler.API.Controllers
 {
 	[EnableCors(origins: "http://localhost:4200,http://127.0.0.1:4200", headers: "*", methods: "*")]
 	[RoutePrefix("api/image")]
-	public class ImageController: ApiController
+	public class ImageController : ApiController
 	{
 		/// <summary>
 		/// Get user applications
@@ -50,41 +50,15 @@ namespace ImageHandler.API.Controllers
 						//Check name and return result
 						if (hpf.FileName.ToLower().Contains("soccer"))
 						{
-							var result = new AnalysisResult()
-							{
-								Message = "Analysis successful"
-							};
-							result.Tags.Add("Fotboll");
-							result.Tags.Add("Sport");
-
-							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/soccer");
-							DirectoryInfo di = new DirectoryInfo(path);
-							var files = di.GetFiles();
-							foreach (var file in files)
-							{
-								result.Images.Add("/Images/soccer/" + file.Name);
-							}
+							AnalysisResult result = GetAnalysisResult("soccer", new List<string>() { "Fotboll", "Sport" });
 
 							return Ok(result);
 						}
 						else
 							if (hpf.FileName.ToLower().Contains("hockey"))
 						{
-							var result = new AnalysisResult()
-							{
-								Message = "Analysis successful"
-							};
-							result.Tags.Add("Ishockey");
-							result.Tags.Add("Sport");
-							result.Tags.Add("Is");
 
-							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/hockey");
-							DirectoryInfo di = new DirectoryInfo(path);
-							var files = di.GetFiles();
-							foreach (var file in files)
-							{
-								result.Images.Add("/Images/hockey/" + file.Name);
-							}
+							AnalysisResult result = GetAnalysisResult("hockey", new List<string>() { "Ishockey", "Sport", "Is" });
 							return Ok(result);
 						}
 
@@ -104,6 +78,25 @@ namespace ImageHandler.API.Controllers
 			{
 				return BadRequest("Upload Failed");
 			}
+		}
+
+		private static AnalysisResult GetAnalysisResult(string category, List<string> tags)
+		{
+			var result = new AnalysisResult()
+			{
+				Message = "Analysis successful"
+			};
+			result.Tags.AddRange(tags);
+
+			var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/" + category);
+			DirectoryInfo di = new DirectoryInfo(path);
+			var files = di.GetFiles();
+			foreach (var file in files)
+			{
+				result.Images.Add(String.Format("/Images/{0}/{1}", category, file.Name));
+			}
+
+			return result;
 		}
 	}
 }
