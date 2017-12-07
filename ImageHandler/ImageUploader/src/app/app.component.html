@@ -6,15 +6,18 @@
   <image-upload [url]="'http://localhost:35195/api/image/upload'" (uploadFinished)="onUploadFinished($event)"></image-upload>
 </div>
 
-<div>{{message}}</div>
-<div *ngIf="this.tags">
-  Suggested Tags:
-  <ul *ngFor="let tag of this.tags">
-    <li>{{tag}}</li>
-  </ul>
-  <img class="suggestedImages" src="http://localhost:35195/{{image}}" />
+<div style="text-align:center">
+    <h1>{{message}}</h1>
 </div>
 
-<div *ngFor="let image of this.images">
-  <img class="suggestedImages" src="http://localhost:35195/{{image}}" />
+<div *ngIf="this.tags">
+  Suggested Tags:
+  <ul>
+    <li *ngFor="let tag of this.tags">{{tag}}<i class="fa fa-times-circle" aria-hidden="true"></i></li>
+  </ul>
+<input value="Add more tags"/><button>Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+
+<div style="clear:both">
+  <img  *ngFor="let image of this.images" class="suggestedImages" src="http://localhost:35195/{{image}}" />
 </div>
