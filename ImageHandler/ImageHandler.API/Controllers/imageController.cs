@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -23,6 +24,10 @@ namespace ImageHandler.API.Controllers
 		[Route("upload")]
 		public IHttpActionResult Upload()
 		{
+			//Simulate computation time
+			Thread.Sleep(1000);
+
+
 			int iUploadedCnt = 0;
 
 			// DEFINE THE PATH WHERE WE WANT TO SAVE THE FILES.
