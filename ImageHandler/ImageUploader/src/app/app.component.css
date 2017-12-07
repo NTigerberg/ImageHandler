@@ -1,0 +1,8 @@
+.suggestedImages{
+  float: left;
+  width: auto;
+  height: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px;
+}
