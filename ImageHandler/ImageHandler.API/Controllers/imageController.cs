@@ -21,7 +21,7 @@ namespace ImageHandler.API.Controllers
 		/// <returns></returns>
 		[HttpPost]
 		[Route("upload")]
-		public string Upload()
+		public AnalysisResult Upload()
 		{
 			int iUploadedCnt = 0;
 
@@ -41,6 +41,48 @@ namespace ImageHandler.API.Controllers
 					// CHECK IF THE SELECTED FILE(S) ALREADY EXISTS IN FOLDER. (AVOID DUPLICATE)
 					if (!File.Exists(sPath + Path.GetFileName(hpf.FileName)))
 					{
+
+						//Check name and return result
+						if (hpf.FileName.ToLower().Contains("soccer"))
+						{
+							var result = new AnalysisResult()
+							{
+								Message = "Analysis successful"
+							};
+							result.Tags.Add("Fotboll");
+							result.Tags.Add("Sport");
+
+							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/hockey");
+							DirectoryInfo di = new DirectoryInfo(path);
+							var files = di.GetFiles();
+							foreach (var file in files)
+							{
+								result.Images.Add("/Images/hockey/" + file.Name);
+							}
+
+							return result;
+						}
+						else
+							if (hpf.FileName.ToLower().Contains("hockey"))
+						{
+							var result = new AnalysisResult()
+							{
+								Message = "Analysis successful"
+							};
+							result.Tags.Add("Ishockey");
+							result.Tags.Add("Sport");
+							result.Tags.Add("Is");
+
+							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/hockey");
+							DirectoryInfo di = new DirectoryInfo(path);
+							var files = di.GetFiles();
+							foreach (var file in files)
+							{
+								result.Images.Add("/Images/hockey/" + file.Name);
+							}
+							return result;
+						}
+
 						// SAVE THE FILES IN THE FOLDER.
 						hpf.SaveAs(sPath + Path.GetFileName(hpf.FileName));
 						iUploadedCnt = iUploadedCnt + 1;
@@ -51,11 +93,11 @@ namespace ImageHandler.API.Controllers
 			// RETURN A MESSAGE (OPTIONAL).
 			if (iUploadedCnt > 0)
 			{
-				return iUploadedCnt + " Files Uploaded Successfully";
+				return new AnalysisResult() { Message = iUploadedCnt + " Files Uploaded Successfully" };
 			}
 			else
 			{
-				return "Upload Failed";
+				return new AnalysisResult() { Message = "Upload Failed" };
 			}
 		}
 	}
