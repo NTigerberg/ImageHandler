@@ -14,5 +14,13 @@ namespace ImageHandler.API.Tests
 
 			trainer.Train();
 		}
+
+		[TestMethod]
+		public void TestMethod2()
+		{
+			var trainer = new Trainer();
+
+			//trainer.TestImage();
+		}
 	}
 }
