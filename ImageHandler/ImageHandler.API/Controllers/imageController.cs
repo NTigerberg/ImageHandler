@@ -21,7 +21,7 @@ namespace ImageHandler.API.Controllers
 		/// <returns></returns>
 		[HttpPost]
 		[Route("upload")]
-		public AnalysisResult Upload()
+		public IHttpActionResult Upload()
 		{
 			int iUploadedCnt = 0;
 
@@ -60,7 +60,7 @@ namespace ImageHandler.API.Controllers
 								result.Images.Add("/Images/hockey/" + file.Name);
 							}
 
-							return result;
+							return Ok(result);
 						}
 						else
 							if (hpf.FileName.ToLower().Contains("hockey"))
@@ -80,7 +80,7 @@ namespace ImageHandler.API.Controllers
 							{
 								result.Images.Add("/Images/hockey/" + file.Name);
 							}
-							return result;
+							return Ok(result);
 						}
 
 						// SAVE THE FILES IN THE FOLDER.
@@ -93,11 +93,11 @@ namespace ImageHandler.API.Controllers
 			// RETURN A MESSAGE (OPTIONAL).
 			if (iUploadedCnt > 0)
 			{
-				return new AnalysisResult() { Message = iUploadedCnt + " Files Uploaded Successfully" };
+				return Ok(new AnalysisResult() { Message = iUploadedCnt + " Files Uploaded Successfully" });
 			}
 			else
 			{
-				return new AnalysisResult() { Message = "Upload Failed" };
+				return BadRequest("Upload Failed");
 			}
 		}
 	}
