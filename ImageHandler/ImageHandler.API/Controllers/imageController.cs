@@ -57,12 +57,12 @@ namespace ImageHandler.API.Controllers
 							result.Tags.Add("Fotboll");
 							result.Tags.Add("Sport");
 
-							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/hockey");
+							var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/soccer");
 							DirectoryInfo di = new DirectoryInfo(path);
 							var files = di.GetFiles();
 							foreach (var file in files)
 							{
-								result.Images.Add("/Images/hockey/" + file.Name);
+								result.Images.Add("/Images/soccer/" + file.Name);
 							}
 
 							return Ok(result);
